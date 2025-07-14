@@ -16,6 +16,16 @@ All implementations produce identical Java JPA entity classes, offering flexibil
 - Includes proper JPA annotations (`@Entity`, `@Table`, `@Column`, `@JoinColumn`, etc.).
 - Supports relationships between tables based on foreign key constraints.
 
+## Workflow Diagram
+The following Mermaid diagram illustrates the workflow of the `sqlToJPA` tool, showing how each implementation processes an SQL schema file to produce Java JPA entity classes:
+
+```mermaid
+graph LR
+    A[SQL Schema File<br/>schema.sql] -->|Lê o SQL de| B(sqlToJPA<br/>Java Application)
+    B -->|Gera Entidades JPA| C[Java JPA Entities<br/>e.g., Customer.java, Product.java]
+    C -->|Salva em| D[Diretório de Pacote<br/>e.g., src/main/java/com/example/entities]
+```
+
 ## Requirements
 ### For sqlToJPAPython
 - Python 3.6 or higher (uses `pathlib`, `dataclasses`, and type hints).
