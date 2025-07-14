@@ -22,21 +22,20 @@ target/
 mvnw
 mvnw.cmd
 *.iml
+.idea/
+*.log
 
 # Generated Java entity classes
 generated-classes/
 generated-entities/
 
 # IDE and editor files
-.idea/
 .vscode/
+.idea/
 *.swp
 *~
 .DS_Store
 Thumbs.db
-.classpath
-.project
-.settings/
 
 # Logs and temporary files
 *.log

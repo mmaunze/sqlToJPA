@@ -1,0 +1,37 @@
+# Java compiled output
+*.class
+*.jar
+*.war
+*.ear
+
+# Output directory for generated JPA entities
+esquema-giganetesco/
+generated-entities/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# Build tools
+/target/
+/build/
+/out/
+
+# Dependency directories
+/lib/
+/.gradle/
+/.mvn/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Miscellaneous
+*.bak
+*.swp
+*~

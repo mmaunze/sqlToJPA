@@ -1,11 +1,6 @@
-# sqlToJPA
+# SQLParserJPAGenerator
 
-`sqlToJPA` is a tool for automatically generating Java JPA (Java Persistence API) entity classes from SQL schema files. It parses `CREATE TABLE` statements, maps SQL data types to Java types, and creates fully annotated Java classes with fields, getters, setters, constructors, relationships, and `equals`/`hashCode` methods. The project includes two implementations:
-
-- **sqlToJPAPython**: A Python-based implementation (`sqlToJPAPython/` directory).
-- **sqlToJPAJava**: A Java-based implementation (`sqlToJPAJava/` directory).
-
-Both implementations produce identical Java JPA entity classes, offering flexibility to use either Python or Java depending on your environment or preference.
+SQLParserJPAGenerator is a Python tool that automatically generates Java JPA (Java Persistence API) entity classes from SQL schema files. It parses `CREATE TABLE` statements, maps SQL data types to Java types, and creates fully annotated Java classes with fields, getters, setters, constructors, relationships, and `equals`/`hashCode` methods.
 
 ## Features
 - Converts SQL data types to appropriate Java types (e.g., `BIGINT` to `Long`, `VARCHAR` to `String`, `TIMESTAMP` to `LocalDateTime`).
@@ -16,36 +11,22 @@ Both implementations produce identical Java JPA entity classes, offering flexibi
 - Supports relationships between tables based on foreign key constraints.
 
 ## Requirements
-### For sqlToJPAPython
 - Python 3.6 or higher (uses `pathlib`, `dataclasses`, and type hints).
+- A SQL schema file containing `CREATE TABLE` statements.
 - No external Python dependencies required.
 - Generated Java classes require Java 8 or higher (due to `java.time` classes like `LocalDateTime`) and JPA (`javax.persistence`) for compilation.
-
-### For sqlToJPAJava
-- Java 8 or higher (uses `java.time` classes like `LocalDateTime`).
-- No external dependencies beyond the standard Java library and JPA (`javax.persistence`).
-
-### General
-- A SQL schema file containing `CREATE TABLE` statements.
 
 ## Installation
 1. Clone the repository:
    ```bash
    git clone https://github.com/mmaunze/sqlToJPA.git
-   cd sqlToJPA
+   cd sqlToJPA/sqlToJPAPython
    ```
-2. Ensure you have either Python 3.6+ (for `sqlToJPAPython`) or JDK 8+ (for `sqlToJPAJava`) installed.
-3. Place your SQL schema file (e.g., `schema.sql`) in the project directory or a subdirectory.
+2. Ensure you have Python 3.6 or higher installed.
+3. Place your SQL schema file (e.g., `schema.sql`) in the project directory.
 
 ## Usage
-The tool can be run using either the Python or Java implementation. Both produce identical Java JPA entity classes.
-
-### Using sqlToJPAPython
-1. Navigate to the Python implementation directory:
-   ```bash
-   cd sqlToJPAPython
-   ```
-2. Run the generator:
+1. Run the generator with the following command:
    ```bash
    python sql_parser_jpa_generator.py schema.sql com.example.entities ./generated-classes
    ```
@@ -53,26 +34,10 @@ The tool can be run using either the Python or Java implementation. Both produce
    - `com.example.entities`: Package name for the generated Java classes (optional, defaults to `com.example.entities`).
    - `./generated-classes`: Output directory for the generated files (optional, defaults to `./generated-entities`).
 
-### Using sqlToJPAJava
-1. Navigate to the Java implementation directory:
-   ```bash
-   cd sqlToJPAJava
-   ```
-2. Compile the Java source file:
-   ```bash
-   javac SQLParserJPAGenerator.java
-   ```
-3. Run the generator:
-   ```bash
-   java SQLParserJPAGenerator schema.sql com.example.entities ./generated-classes
-   ```
-   - Parameters are the same as for the Python version.
-
-### Output
-Both implementations create a directory structure matching the package name (e.g., `./generated-classes/com/example/entities`) and generate one `.java` file per table.
+2. The tool will create a directory structure matching the package name (e.g., `./generated-classes/com/example/entities`) and generate one `.java` file per table.
 
 ## Example SQL Schema
-Create a file named `schema.sql` with the following content to test either implementation:
+Create a file named `schema.sql` with the following content to test the generator:
 ```sql
 CREATE TABLE users (
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -89,17 +54,9 @@ CREATE TABLE roles (
 );
 ```
 
-Run either implementation, e.g., for Python:
+Run the tool:
 ```bash
-cd sqlToJPAPython
 python sql_parser_jpa_generator.py schema.sql com.example.entities ./generated-classes
-```
-
-Or for Java:
-```bash
-cd sqlToJPAJava
-javac SQLParserJPAGenerator.java
-java SQLParserJPAGenerator schema.sql com.example.entities ./generated-classes
 ```
 
 This will generate two files:
@@ -148,7 +105,7 @@ public class Users implements Serializable {
 - The generated Java classes require a Java environment with JPA to compile and run.
 
 ## Contributing
-Contributions are welcome! Feel free to submit issues or pull requests to improve either implementation, such as adding support for more SQL types, relationship types, or annotations like Lombok or JPA validation. Please specify whether your contribution targets `sqlToJPAPython`, `sqlToJPAJava`, or both.
+Feel free to submit issues or pull requests to improve the tool, such as adding support for more SQL types, relationship types, or annotations like Lombok or JPA validation.
 
 ## License
 This project is licensed under the MIT License.
