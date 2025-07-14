@@ -18,8 +18,8 @@ SQLParserJPAGenerator is a Java tool that automatically generates JPA (Java Pers
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mmaunze/qlToJPA.git
-   cd <qlToJPA>
+   git clone https://github.com/mmaunze/sqlToJPA.git
+   cd sqlToJPA
    ```
 2. Ensure you have a Java Development Kit (JDK) installed (version 8 or higher).
 3. Place your SQL schema file (e.g., `schema.sql`) in the project directory.
