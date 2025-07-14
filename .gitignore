@@ -23,6 +23,20 @@ mvnw
 mvnw.cmd
 *.iml
 
+# C++ files
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.cmake
+
 # Generated Java entity classes
 generated-classes/
 generated-entities/

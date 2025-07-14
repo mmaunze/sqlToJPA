@@ -1,11 +1,12 @@
 # sqlToJPA
 
-`sqlToJPA` is a tool for automatically generating Java JPA (Java Persistence API) entity classes from SQL schema files. It parses `CREATE TABLE` statements, maps SQL data types to Java types, and creates fully annotated Java classes with fields, getters, setters, constructors, relationships, and `equals`/`hashCode` methods. The project includes two implementations:
+`sqlToJPA` is a tool for automatically generating Java JPA (Java Persistence API) entity classes from SQL schema files. It parses `CREATE TABLE` statements, maps SQL data types to Java types, and creates fully annotated Java classes with fields, getters, setters, constructors, relationships, and `equals`/`hashCode` methods. The project includes three implementations:
 
 - **sqlToJPAPython**: A Python-based implementation (`sqlToJPAPython/` directory).
 - **sqlToJPAJava**: A Java-based implementation (`sqlToJPAJava/` directory).
+- **sqlToJPAcpp**: A C++-based implementation (`sqlToJPAcpp/` directory).
 
-Both implementations produce identical Java JPA entity classes, offering flexibility to use either Python or Java depending on your environment or preference.
+All implementations produce identical Java JPA entity classes, offering flexibility to use Python, Java, or C++ depending on your environment or preference.
 
 ## Features
 - Converts SQL data types to appropriate Java types (e.g., `BIGINT` to `Long`, `VARCHAR` to `String`, `TIMESTAMP` to `LocalDateTime`).
@@ -25,6 +26,12 @@ Both implementations produce identical Java JPA entity classes, offering flexibi
 - Java 8 or higher (uses `java.time` classes like `LocalDateTime`).
 - No external dependencies beyond the standard Java library and JPA (`javax.persistence`).
 
+### For sqlToJPAcpp
+- C++17 or higher (uses `<filesystem>` and other C++17 features).
+- A C++ compiler supporting C++17 (e.g., g++ 7.0 or later).
+- No external C++ dependencies required.
+- Generated Java classes require Java 8 or higher and JPA (`javax.persistence`) for compilation.
+
 ### General
 - A SQL schema file containing `CREATE TABLE` statements.
 
@@ -34,11 +41,14 @@ Both implementations produce identical Java JPA entity classes, offering flexibi
    git clone https://github.com/mmaunze/sqlToJPA.git
    cd sqlToJPA
    ```
-2. Ensure you have either Python 3.6+ (for `sqlToJPAPython`) or JDK 8+ (for `sqlToJPAJava`) installed.
+2. Ensure you have the required tools installed:
+   - Python 3.6+ for `sqlToJPAPython`.
+   - JDK 8+ for `sqlToJPAJava`.
+   - C++17-compliant compiler (e.g., g++) for `sqlToJPAcpp`.
 3. Place your SQL schema file (e.g., `schema.sql`) in the project directory or a subdirectory.
 
 ## Usage
-The tool can be run using either the Python or Java implementation. Both produce identical Java JPA entity classes.
+The tool can be run using any of the three implementations (Python, Java, or C++). All produce identical Java JPA entity classes.
 
 ### Using sqlToJPAPython
 1. Navigate to the Python implementation directory:
@@ -68,11 +78,26 @@ The tool can be run using either the Python or Java implementation. Both produce
    ```
    - Parameters are the same as for the Python version.
 
+### Using sqlToJPAcpp
+1. Navigate to the C++ implementation directory:
+   ```bash
+   cd sqlToJPAcpp
+   ```
+2. Compile the C++ source file:
+   ```bash
+   g++ -std=c++17 sql_parser_jpa_generator.cpp -o sql_parser_jpa_generator
+   ```
+3. Run the generator:
+   ```bash
+   ./sql_parser_jpa_generator schema.sql com.example.entities ./generated-classes
+   ```
+   - Parameters are the same as for the Python and Java versions.
+
 ### Output
-Both implementations create a directory structure matching the package name (e.g., `./generated-classes/com/example/entities`) and generate one `.java` file per table.
+All implementations create a directory structure matching the package name (e.g., `./generated-classes/com/example/entities`) and generate one `.java` file per table.
 
 ## Example SQL Schema
-Create a file named `schema.sql` with the following content to test either implementation:
+Create a file named `schema.sql` with the following content to test any implementation:
 ```sql
 CREATE TABLE users (
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -89,17 +114,24 @@ CREATE TABLE roles (
 );
 ```
 
-Run either implementation, e.g., for Python:
+Run any implementation, e.g., for C++:
+```bash
+cd sqlToJPAcpp
+g++ -std=c++17 sql_parser_jpa_generator.cpp -o sql_parser_jpa_generator
+./sql_parser_jpa_generator ../schema.sql com.example.entities ../generated-classes
+```
+
+Or for Python:
 ```bash
 cd sqlToJPAPython
-python sql_parser_jpa_generator.py schema.sql com.example.entities ./generated-classes
+python sql_parser_jpa_generator.py ../schema.sql com.example.entities ../generated-classes
 ```
 
 Or for Java:
 ```bash
 cd sqlToJPAJava
 javac SQLParserJPAGenerator.java
-java SQLParserJPAGenerator schema.sql com.example.entities ./generated-classes
+java SQLParserJPAGenerator ../schema.sql com.example.entities ../generated-classes
 ```
 
 This will generate two files:
@@ -148,7 +180,7 @@ public class Users implements Serializable {
 - The generated Java classes require a Java environment with JPA to compile and run.
 
 ## Contributing
-Contributions are welcome! Feel free to submit issues or pull requests to improve either implementation, such as adding support for more SQL types, relationship types, or annotations like Lombok or JPA validation. Please specify whether your contribution targets `sqlToJPAPython`, `sqlToJPAJava`, or both.
+Contributions are welcome! Feel free to submit issues or pull requests to improve any implementation, such as adding support for more SQL types, relationship types, or annotations like Lombok or JPA validation. Please specify whether your contribution targets `sqlToJPAPython`, `sqlToJPAJava`, `sqlToJPAcpp`, or multiple implementations.
 
 ## License
 This project is licensed under the MIT License.
